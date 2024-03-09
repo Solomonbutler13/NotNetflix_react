@@ -1,13 +1,42 @@
-/* Add styles to visualize empty boxes */
-.movie-card {
-  width: 200px;
-  height: 300px;
-  border: 1px solid #ccc;
-  margin: 10px;
-  padding: 10px;
-  box-sizing: border-box;
+/* Add styles to visually separate each movie category section */
+.genre-section {
+  margin-top: 40px;
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
 }
 
+
+
+/* Ensure images inside movie cards fill the container */
+.movie-card img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Additional styles for when the card is hovered */
+.movie-card:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+/* Change the background color of the entire website */
+body {
+  background-color: #452626; /* Set the desired background color */
+}
+
+/* Style the "NotNetflix" logo */
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  background-color: #f44336; /* Set background color */
+  color: #fff; /* Set text color */
+  padding: 10px 20px; /* Add padding */
+  border-radius: 5px; /* Add border radius */
+  display: inline-block; /* Ensure the logo is displayed as an inline block */
+}
+
+/* Move the search bar to the far right */
 .search-bar {
   width: 300px;
   height: 40px;
@@ -15,41 +44,34 @@
   margin-bottom: 10px;
   padding: 5px;
   box-sizing: border-box;
+  float: right; /* Move the search bar to the right */
 }
 
-.modal {
-  display: none;
+/* Center align the search button */
+.search-bar button {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
 }
 
-.modal.open {
-  display: block;
+/* Add padding to the top of the landing page */
+.landing-page {
+  padding-top: 20px;
+}
+/* Add overflow scroll for each genre section */
+.movie-list {
+  display: flex;
+  overflow-x: auto; /* Add horizontal scrollbar when necessary */
+  padding-bottom: 10px; /* Add some padding at the bottom */
 }
 
-.modal-content {
-  width: 600px;
-  height: 400px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  padding: 20px;
-  box-sizing: border-box;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 999;
-}
-
-.close {
-  color: #000;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.close:hover,
-.close:focus {
-  color: #f00;
-  text-decoration: none;
-  cursor: pointer;
+/* Ensure each movie card is in a row */
+.movie-card {
+  flex: 0 0 auto; /* Allow the movie cards to shrink and grow */
+  width: 200px; /* Set the width of each card */
+  height: auto; /* Allow the height to adjust based on content */
+  border: 1px solid #ccc; /* Add a border around each card */
+  margin: 10px; /* Add margin between cards */
+  padding: 10px; /* Add padding inside each card */
+  box-sizing: border-box; /* Include padding and border in the box sizing */
 }

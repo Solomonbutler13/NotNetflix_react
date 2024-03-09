@@ -1,10 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import { createRoot } from 'react-dom/client'; // Import createRoot from react-dom/client
+import LandingPage from './components/LandingPage';
+import './index.css';
 
-ReactDOM.render(
+// Use createRoot instead of ReactDOM.render
+const root = createRoot(document.getElementById('root'));
+
+// Wrap your component with createRoot().render()
+root.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <LandingPage />
+  </React.StrictMode>
 );

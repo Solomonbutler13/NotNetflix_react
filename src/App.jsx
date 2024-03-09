@@ -1,12 +1,16 @@
-import React from 'react';
-import './index.css';
-import LandingPage from './src/LandingPage'; // Import LandingPage component
+// import React from 'react';
+// import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+// import LandingPage from './LandingPage';
+// import MovieDetailsPage from './MovieDetailsPage';
 
 function App() {
   return (
-    <div className="App">
-      <LandingPage /> {/* Render LandingPage component */}
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/" component={LandingPage} />
+        <Route path="/movie/:movieId" component={MovieDetailsPage} />
+      </Switch>
+    </Router>
   );
 }
 
