@@ -2,13 +2,17 @@ import React, { useState, useEffect } from 'react';
 import MovieCard from './MovieCard';
 import SearchBar from './SearchBar';
 
+
 function LandingPage() {
   const [movies, setMovies] = useState([]);
+  const [openCard, setOpenCard] = useState(null);
+
+
 
   useEffect(() => {
-    const fetchMovies = async () => {
+    const fetchMovies = async (url) => {
       try {
-        const response = await fetch('https://api.themoviedb.org/3/discover/movie?api_key=b1450545c1c2507e81244e55d8f88a32&limit=50', {
+        const response = await fetch(url, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -27,20 +31,31 @@ function LandingPage() {
       }
     };
 
-    fetchMovies();
+    fetchMovies('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1');
   }, []);
+
+  const handleMouseEnter = (movieId) => {
+    if (!selectedMovie) {
+      setHoveredMovie(movieId);
+    }
+  };
+  const handleMouseLeave = () => {
+    setHoveredMovie(null);
+  };
 
   // Filter movies by genre
   const topMovies = movies.filter(movie => movie.popularity > 500);
   const horrorMovies = movies.filter(movie => movie.genre_ids.includes(27));
   const actionMovies = movies.filter(movie => movie.genre_ids.includes(28));
   const romanceMovies = movies.filter(movie => movie.genre_ids.includes(10749));
- // Adjust popularity threshold as needed
 
   return (
     <div className="landing-page">
       <div className="logo">NotNetflix</div>
       <SearchBar />
+
+
+ 
 
       {/* Top Movies Section */}
       <div className="genre-section">
@@ -52,6 +67,10 @@ function LandingPage() {
               title={movie.title}
               overview={movie.overview}
               posterUrl={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              movieId={movie.id}
+              openCard={openCard}
+              setOpenCard={setOpenCard}
+              
             />
           ))}
         </div>
@@ -67,6 +86,9 @@ function LandingPage() {
               title={movie.title}
               overview={movie.overview}
               posterUrl={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              movieId={movie.id}
+              openCard={openCard}
+              setOpenCard={setOpenCard}
             />
           ))}
         </div>
@@ -82,6 +104,9 @@ function LandingPage() {
               title={movie.title}
               overview={movie.overview}
               posterUrl={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              movieId={movie.id}
+              openCard={openCard}
+              setOpenCard={setOpenCard}
             />
           ))}
         </div>
@@ -97,6 +122,9 @@ function LandingPage() {
               title={movie.title}
               overview={movie.overview}
               posterUrl={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              movieId={movie.id}
+              openCard={openCard}
+              setOpenCard={setOpenCard}
             />
           ))}
         </div>

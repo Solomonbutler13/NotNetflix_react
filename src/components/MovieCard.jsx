@@ -1,38 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-function MovieCard({ title, overview, posterUrl, trailerUrl }) {
-  const [isHovered, setIsHovered] = useState(false);
-  const [isClicked, setIsClicked] = useState(false);
+function MovieCard({ title, overview, posterUrl, movieId, openCard, setOpenCard  }) {
 
-  const handleHover = () => {
-    setIsHovered(true);
-  };
+  const [trailerUrl, setTrailerUrl] = useState('');
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
+  useEffect(() => {
+    const fetchTrailerUrl = async () => {
+      try {
+        const response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=b1450545c1c2507e81244e55d8f88a32&append_to_response=videos`);
+        const data = await response.json();
+        const trailerKey = data?.videos?.results[0]?.key;
+        if (trailerKey) {
+          setTrailerUrl(`https://www.youtube.com/embed/${trailerKey}`);
+        } else {
+          console.log(`No trailer found for ${title}`);
+        }
+      } catch (error) {
+        console.error('Error fetching trailer URL:', error);
+      }
+    };
+
+    fetchTrailerUrl();
+  }, [movieId, title]);
 
   const handleClick = () => {
-    setIsClicked(!isClicked);
+    if (openCard === movieId) {
+      setOpenCard(null);
+    } else {
+      setOpenCard(movieId);
+    }
   };
 
+
   return (
-    <div
-      className={`movie-card ${isHovered ? 'hovered' : ''}`}
-      onMouseEnter={handleHover}
-      onMouseLeave={handleMouseLeave}
-      onClick={handleClick}
-    >
+    <div className="movie-card" onClick={handleClick}>
       <img src={posterUrl} alt={title} />
-      {isClicked && (
-        <div className="movie-details">
-          <h2>{title}</h2>
+      <h3>{title}</h3>
+      {openCard === movieId && (
+        <div>
           <p>{overview}</p>
-        </div>
-      )}
-      {isClicked && (
-        <div className="trailer">
-          <iframe title="trailer" width="560" height="315" src={trailerUrl} frameborder="0" allowfullscreen></iframe>
+          {trailerUrl && (
+            <div className="trailer">
+              <iframe
+                title="trailer"
+                width="560"
+                height="250"
+                src={trailerUrl}
+                allowFullScreen
+              ></iframe>
+            </div>
+          )}
         </div>
       )}
     </div>
